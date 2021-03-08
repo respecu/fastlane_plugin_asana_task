@@ -1,0 +1,9 @@
+lane :test do
+  asana_task(
+    accessToken: "1/1200001915896588:1fc928911a5270b4bd23c76cc994ffa6",
+    taskName: "fastlane asana plugin Test",
+    description: "fastlane asana plugin Test description",
+    assigneeId: "1200001915896588",
+    projectId: "1200015561473955"
+  )
+end
