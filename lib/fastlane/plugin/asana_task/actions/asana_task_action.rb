@@ -39,11 +39,14 @@ module Fastlane
 
         sectionId = params[:sectionId]
         if sectionId != nil or sectionId != ""
+          UI.message("Adding task into section...........")
           asana_section_url = "https://app.asana.com/api/1.0/sections/#{sectionId}/addTask"
+
+          jsonBody = JSON.parse(response.body)
 
           sectionBody = {
             data: {
-              task: response[:data[:gid]]
+              task: jsonBody['data']['gid']
             }
           }
 
