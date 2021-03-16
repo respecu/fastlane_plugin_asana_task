@@ -36,6 +36,20 @@ module Fastlane
         #Send the request
         response = HTTParty.post(asana_url, :headers => headers, body: message.to_json)
         UI.message("response : #{response}")
+
+        sectionId = params[:sectionId]
+        if !sectionId.blank?
+          asana_section_url = "https://app.asana.com/api/1.0/sections/#{sectionId}/addTask"
+
+          sectionBody = {
+            data: {
+              task: response[:data[:gid]]
+            }
+          }
+
+          response = HTTParty.post(asana_section_url, :headers => headers, body: sectionBody.to_json)
+          UI.message("response : #{response}")
+        end
       end
 
       def self.description
@@ -84,6 +98,12 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :projectId,
                                   env_name: "PROJECT_ID",
                                 description: "project id for task",
+                                  optional: true,
+                                      type: String),
+
+          FastlaneCore::ConfigItem.new(key: :sectionId,
+                                  env_name: "SECTION_ID",
+                                description: "section id for task",
                                   optional: true,
                                       type: String)
         ]
