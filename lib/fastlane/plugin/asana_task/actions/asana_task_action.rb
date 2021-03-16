@@ -38,7 +38,7 @@ module Fastlane
         UI.message("response : #{response}")
 
         sectionId = params[:sectionId]
-        if !sectionId.blank?
+        if sectionId != nil or sectionId != ""
           asana_section_url = "https://app.asana.com/api/1.0/sections/#{sectionId}/addTask"
 
           sectionBody = {
